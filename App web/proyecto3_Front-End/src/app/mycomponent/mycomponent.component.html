@@ -1,0 +1,54 @@
+<main class="login-design">
+  <div class="login">
+    <form #form="ngForm" (ngSubmit)="onSubmit1(form)">
+      <h1 style="text-align: center; font-family:Dosis, sans-serif;">Tipo de local</h1>
+      <div class="select-select">
+        
+        <select id="tlocal" name="tlocal" [(ngModel)]="this.TLSeleccionado" (click)="getTipoLocal()" required>
+          <option selected disabled style="color:rgb(211, 209, 209)">Tipo de local comercial</option>
+          <option *ngFor="let item of TipolocalComercial" value={{item.name}}>{{item.name}} </option>
+        </select> 
+      </div>
+      <div *ngIf="TLSeleccionado != 'undefined' ">
+        <h4>Rechazados: {{this.Rechazados1}}</h4>
+        <h4>Aceptados: {{this.Aceptados1}}</h4>
+      </div>
+      
+    </form>
+  </div>
+
+  <div class="login">
+    <form #form="ngForm" (ngSubmit)="onSubmit2(form)">
+
+        <h1 style="text-align: center; font-family:Dosis, sans-serif;">Local Comercial</h1>
+        <div class="select-select">
+          <select  id="tlocal" name="tlocal" [(ngModel)]="this.LSeleccionado" required>
+            <option selected disabled style="color:rgb(211, 209, 209)">local comercial</option>
+            <option *ngFor="let item of LocalComercial" value={{item.name}}>{{item.name}} </option>
+          </select>
+        </div>
+        <div *ngIf="LSeleccionado != 'undefined' ">
+          <h3 style="text-align: center; font-family:Dosis, sans-serif; ">Selecciona Intervalo de fecha</h3>
+          <input type="date" name="fechaInicio" [(ngModel)]="this.fechaInicio" required>
+          <span style="margin-left: 10px; margin-right: 10px">hasta</span>
+          <input type="date" name="fechaFin" [(ngModel)]="this.fechaFin" required>
+          <button (click)="getLocalFecha()">Confirmar</button>
+        </div>
+        <div *ngIf="estado">
+          <h4 style="text-align:center;">{{"Aceptados: " + this.Aceptados2 + " y Rechazados: " + this.Rechazados2}}</h4>
+        </div>
+
+        <div *ngIf="LSeleccionado != 'undefined' " >
+          <br>
+        <br>
+        <br>
+          <i>Determinar el total de personas aceptadas y rechazadas por personeros del ministerio de salud.</i>
+          <button (click)="getMinisterio()">Confirmar</button>
+        </div>
+        <div *ngIf="estado2">
+          <h4 style="text-align:center;">{{"Aceptados: " + this.Aceptados3 + " y Rechazados: " + this.Rechazados3}}</h4>
+        </div>
+
+    </form>
+  </div>
+</main>

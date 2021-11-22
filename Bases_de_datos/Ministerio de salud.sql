@@ -25,6 +25,7 @@ create table centro_vacunacion
 	num_dosis_asignadas	int null,
 	num_dosis_aplicadas	int null
 );
+select * from centro_vacunacion;
 
 
 -- DROP TABLE vacuna_aplicada;

@@ -8,7 +8,7 @@
     "pg-hstore": "^2.3.4",
     "sequelize": "^6.9.0"
   },
-  "name": "proyecto_3_QR",
+  "name": "proyecto_3_qr",
   "version": "1.0.0",
   "main": "index.js",
   "devDependencies": {

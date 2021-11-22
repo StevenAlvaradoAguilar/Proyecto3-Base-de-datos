@@ -121,8 +121,8 @@ BEGIN
 				CAST(p_consulta -> 'local' ->> 'tipo' AS varchar(50)),
 				CAST(p_consulta -> 'local' ->> 'nombre' AS varchar(100)),
 				CAST(p_consulta ->> 'tipo_consulta' AS varchar(50)),
-				id_aceptado,
-				id_rechazado
+				id_aceptado     ->> 'id_aceptado' AS int),
+				id_rechazado    ->> 'id_rechazado' AS int),
 			);
 		ELSE
 			EXIT;

@@ -19,20 +19,7 @@ create table personas
 );
 select * from personas;
 
-
--- DROP TABLE centro_vacunacion;
-create table centro_vacunacion
-(
-	id 					int primary key,
-	nombre				varchar(100) not null,
-	num_dosis_asignadas	int null,
-	num_dosis_aplicadas	int null
-);
-
-select * from centro_vacunacion;
-
-
--- DROP TABLE vacuna_aplicada;
+-- DROP table vacuna_aplicada;
 create table vacuna_aplicada
 (
 	id 					int primary key,

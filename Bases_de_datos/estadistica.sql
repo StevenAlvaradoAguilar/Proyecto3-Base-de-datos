@@ -61,6 +61,7 @@ CREATE TABLE consultas
 select * from consultas;
 
 -- Tabla para registrar los datos necesarios para las estadisticas
+-- drop table estadisticas;
 CREATE TABLE estadisticas
 (
 	id_consulta   int NOT NULL,

@@ -1,4 +1,4 @@
-create database consulta_esquema_vacunacion_qr;
+	create database consulta_esquema_vacunacion_qr;
 
 -- =======================================================================================================================================
 -- Tablas necesarias para la replicación de datos
@@ -52,7 +52,7 @@ select * from consultas;
 -- drop function estado_vacunacion;
 CREATE OR REPLACE FUNCTION estado_vacunacion
 (
-	cedula         varchar(50), 
+	persona        int, 
 	nombre         varchar(50),
 	tipo_local     varchar(50),
 	nombre_local   varchar(50), 
@@ -67,7 +67,7 @@ DECLARE
 	p_condicion boolean;
 BEGIN
 	--Realiza la consulta
-	SELECT COUNT(*) FROM vacuna_aplicada WHERE cedula = cedula INTO cant_vacunas;
+	SELECT COUNT(*) FROM vacuna_aplicada WHERE paciente = persona INTO cant_vacunas;
 	
 	--Registra la consulta
 	IF cant_vacunas = 2 THEN
@@ -82,7 +82,7 @@ BEGIN
 		json_build_object
 		(
 			'fecha', CURRENT_DATE, 
-			'cedula', cedula, 
+			'persona', persona, 
 			'local', json_build_object('tipo_Comercio', tipo_local, 'persona_consultada', nombre_local), 
 			'tipo_consulta', tipo_consulta, 
 			'info_adicional', info_adicional),
@@ -91,7 +91,7 @@ BEGIN
 	
 	--Retorna la respuesta
 	RETURN QUERY 
-	SELECT json_build_object('Nombre', nombre, 'cedula', cedula, 'cant_vacunas', cant_vacunas, 'aceptado', p_condicion)
+	SELECT json_build_object('Nombre', nombre, 'persona', persona, 'cant_vacunas', cant_vacunas, 'aceptado', p_condicion)
 	AS estado_vacunacion;
 	
 END
@@ -99,15 +99,15 @@ $$
 LANGUAGE PLPGSQL;
 
 
-SELECT estado_vacunacion('207550366', 'José Solís Barquero', 'Comercio', 'Pali', 'Validación para ingreso por parte del local comercial', '...');
+SELECT estado_vacunacion(1, 'José Solís Barquero', 'Comercio', 'Pali', 'Validación para ingreso por parte del local comercial', '...');
 
-SELECT estado_vacunacion('206950342', 'María Angulo Picado', 'Comercio', 'El Rinconcito de Tita', 'Validación por personeros del Ministerio de salud', '...');
+SELECT estado_vacunacion(6, 'María Angulo Picado', 'Comercio', 'El Rinconcito de Tita', 'Validación por personeros del Ministerio de salud', '...');
 	   
-SELECT estado_vacunacion('405889524', 'Martina Socorro Diaz', 'Servicios Públicos', 'Área de salud Naranjo', 'Validación para ingreso por parte del local comercial', '...');
+SELECT estado_vacunacion(8, 'Martina Socorro Diaz', 'Servicios Públicos', 'Área de salud Naranjo', 'Validación para ingreso por parte del local comercial', '...');
 
-SELECT estado_vacunacion('602350785', 'Melissa Solís Barquero', 'Tienda', 'La Naranjeña', 'Validación para ingreso por parte del local comercial', '...');
+SELECT estado_vacunacion(9, 'Melissa Solís Barquero', 'Tienda', 'La Naranjeña', 'Validación para ingreso por parte del local comercial', '...');
 	   
-SELECT estado_vacunacion('36950741', 'Jesús Sequeira Montes', 'Supermercado', 'CooproNaranjo', 'Validación por personeros del Ministerio de salud', '...');
+SELECT estado_vacunacion(12, 'Jesús Sequeira Montes', 'Supermercado', 'CooproNaranjo', 'Validación por personeros del Ministerio de salud', '...');
 
 
 -- =======================================================================================================================================
